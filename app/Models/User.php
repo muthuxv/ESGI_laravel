@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'pseudo',
         'name',
+        'lastname',
         'email',
         'password',
+        'id_media'
     ];
 
     /**
@@ -33,12 +36,33 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+    /**ashboar
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function medium()
+    {
+        return $this->belongsTo(Medium::class, 'id_media');
+    }
+
+    public function abonnements()
+    {
+        return $this->hasMany(Abonnement::class, 'abonne');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'id_user');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'id_user');
+    }
+
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'id_user2');
+    }
 }

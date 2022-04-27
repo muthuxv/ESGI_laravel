@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TrendsController as trends;
+use App\Http\Controllers\UserController as user;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/trends', [trends::class,'trends'])->middleware(['auth'])->name('trends');
+
+//Users routes
+Route::get('/user/{pseudo}', [user::class,'posted'])->middleware(['auth'])->name('user');
+
+Route::get('/user/{pseudo}/comments', [user::class,'comments'])->middleware(['auth'])->name('userComments');
+
+Route::get('/user/{pseudo}/liked', [user::class,'liked'])->middleware(['auth'])->name('userLiked');
+
+require __DIR__.'/auth.php';
