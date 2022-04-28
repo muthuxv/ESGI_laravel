@@ -47,6 +47,7 @@ class RegisteredUserController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'id_media' => 14
         ]);
         mkdir('users/' . $request->pseudo);
 

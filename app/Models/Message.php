@@ -20,11 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 	protected $table = 'Message';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
 		'id_conversation' => 'int'
 	];
 

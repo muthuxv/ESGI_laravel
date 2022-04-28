@@ -7,15 +7,19 @@
 /*moncode*/
 .container-profile{
   margin-right: 5px;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   border: 1px solid black;
   border-radius: 100px;
 }
-
+.container-profile > img{
+  width: 95%;
+  height: 95%;
+  border-radius: 100px;
+}
 /*====*/
 *,
-::before,
+::before,b
 ::after {
   box-sizing: border-box; /* 1 */
   border-width: 0; /* 2 */

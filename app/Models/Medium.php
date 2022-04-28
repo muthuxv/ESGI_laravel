@@ -23,12 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Medium extends Model
 {
 	protected $table = 'Media';
-	public $incrementing = false;
 	public $timestamps = false;
-
-	protected $casts = [
-		'id' => 'int'
-	];
 
 	protected $fillable = [
 		'path'
@@ -36,7 +31,7 @@ class Medium extends Model
 
 	public function post_media()
 	{
-		return $this->hasMany(PostMedia::class, 'id_post');
+		return $this->hasMany(PostMedia::class, 'id_media');
 	}
 
 	public function users()
