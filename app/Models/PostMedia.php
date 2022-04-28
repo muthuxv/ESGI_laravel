@@ -37,6 +37,6 @@ class PostMedia extends Model
 
 	public function medium()
 	{
-		return $this->belongsTo(Medium::class, 'id_post');
+		return $this->belongsTo(Medium::class, 'id_media');
 	}
 }

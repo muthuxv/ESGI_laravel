@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/trends', [trends::class,'trends'])->middleware(['auth'])->name('trends');
 
+Route::get('/follow/{pseudo}',[user::class, 'follow'])->middleware(['auth'])->name('follow');
+Route::get('/unfollow/{pseudo}',[user::class, 'unfollow'])->middleware(['auth'])->name('unfollow');
+
 //Users routes
 Route::get('/user/{pseudo}', [user::class,'posted'])->middleware(['auth'])->name('user');
 

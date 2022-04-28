@@ -28,11 +28,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
 	protected $table = 'Post';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
 		'id_user' => 'int'
 	];
 
