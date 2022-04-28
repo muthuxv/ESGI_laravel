@@ -2,9 +2,19 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
            <nav>
-                [<a href="{{ route('user', $user) }}">Postes</a>]
-                [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
-                [<a href="{{ route('userLiked', $user) }}">Likes</a>]
+           <b>Profil de {{ $user }}</b>
+           
+            @if($isfollowing)
+                <a href="{{ route('unfollow', $user) }}">[UNFOLLOW]</a>
+            @elseif(Auth::user()->pseudo != $user)
+                <a href="{{ route('follow', $user) }}">[FOLLOW]</a>
+            @endif
+            Abonnement : {{ $nbabonnement }}
+            Abonnés : {{ $nbabonne }}
+            <br><br>
+            [<a href="{{ route('user', $user) }}">Postes</a>]
+            [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
+            [<a href="{{ route('userLiked', $user) }}">Likes</a>]
             </nav>
         </h2>
     </x-slot>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TrendsController extends Controller
 {
@@ -12,6 +14,8 @@ class TrendsController extends Controller
         }else{
             $isPost = false;
         }
-        return view('main.trends', ['isPost' => $isPost]);
+        $users = User::all();
+        return view('main.trends', ['isPost' => $isPost, 'users' => $users]);
+
     }
 }
