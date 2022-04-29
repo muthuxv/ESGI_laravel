@@ -24,7 +24,20 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1>
-                        commentaires de {{$user}}
+                        @foreach($comments as $comment)
+                            <span style="display:flex">
+                                <div class="container-profile">
+                                    <img src="/{{$comment['path']}}" alt="">
+                                </div>
+                                {{$comment["pseudo"]}} : {{$comment["text"]}}
+                            </span>
+                            <div style="font-size:0.9em">
+                                Envoyé à : {{$comment["sendAt"]}}
+                                <!--@if($comment["id"] == Auth::user()->id)
+                                    [<a href=" {{ route('deleteCom', $comment['idCom'])}}">Supprimer</a>]
+                                @endif-->
+                            </div>
+                        @endforeach
                     </h1>
                 </div>
             </div>

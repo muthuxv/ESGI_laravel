@@ -40,7 +40,8 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a href="{{ route('user', Auth::user()->pseudo) }}">Votre compte</a>
+                            <x-dropdown-link :href="route('user', Auth::user()->pseudo)">Votre compte</x-dropdown-link>
+                            <x-dropdown-link :href="route('profile')">Parametre compte</x-dropdown-link>
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">

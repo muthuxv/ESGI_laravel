@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->hasMany(Abonnement::class, 'abonne');
     }
 
+    public function commentaires()
+	{
+		return $this->hasMany(Commentaire::class, 'id_user');
+	}
+
     public function likes()
     {
         return $this->hasMany(Like::class, 'id_user');

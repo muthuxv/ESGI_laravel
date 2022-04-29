@@ -16,6 +16,5 @@ class TrendsController extends Controller
         }
         $users = User::all();
         return view('main.trends', ['isPost' => $isPost, 'users' => $users]);
-
     }
 }
