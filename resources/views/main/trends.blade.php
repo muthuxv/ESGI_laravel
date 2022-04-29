@@ -18,10 +18,12 @@
                             {{ $post['user'] }}
                         </h2>
                         </a>
+                        <a href="{{ route('post', $post['idPost']) }}">
                             <p>A dit : {{$post["text"]}}</p>
                             @if(!is_null($post["path"]))
                                 <img width="450" height="300" src="/{{$post['path']}}" alt="">
                             @endif
+                        </a>
                             <span style="font-size:0.9em">Posté à : {{$post["postedAt"]}}</span>
                             <a style="position:relative; bottom:5px; right:-450px;font-size:1.5em" href="{{ route('like', $post['idPost']) }}">{{$post["like"]}} ❤</a>
                         </div>
