@@ -41,6 +41,8 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('user', Auth::user()->pseudo) }}">Votre compte</a>
+                            <br>
+                            <a href="{{ route('createPost') }}">Créer un post</a>
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">

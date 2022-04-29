@@ -75,4 +75,34 @@ class UserController extends Controller
         Abonnement::where('abonne', Auth::id())->where('abonnement', $user_id)->delete();
         return redirect(route('user', $user->pseudo));
     }
+
+    public function getAbonnements(Request $request)
+    {
+        $user = User::where('pseudo', $request->pseudo)-> first();
+        $displayAbonnements = [];
+        $abonnements = Abonnement::where('abonne', $user->id)->get();
+        
+        foreach($abonnements as $abonnement)
+        {
+            $userabonnement = User::where('id', $abonnement->abonnement)-> first();
+            array_push($displayAbonnements, ["pseudo" => $userabonnement->pseudo]);
+        }
+
+        return view('main.users.abonnementList', ['user' => $user->pseudo, 'abonnements' => $displayAbonnements]);
+    }
+
+    public function getAbonnes(Request $request)
+    {
+        $user = User::where('pseudo', $request->pseudo)-> first();
+        $displayAbonnes = [];
+        $abonnes = Abonnement::where('abonnement', $user->id)->get();
+        
+        foreach($abonnes as $abonne)
+        {
+            $userabonne = User::where('id', $abonne->abonne)-> first();
+            array_push($displayAbonnes, ["pseudo" => $userabonne->pseudo]);
+        }
+
+        return view('main.users.abonneList', ['user' => $user->pseudo, 'abonnes' => $displayAbonnes]);
+    }
 }
