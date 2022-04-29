@@ -52,6 +52,10 @@ class PostController extends Controller
         if($post->id_user != Auth::id()){
             abort(404);
         }
+        foreach($post->commentaires as $comment){
+            $comment->delete();
+        }
+        \DB::delete('DELETE from `Like` WHERE id_post = ?', [$post->id]);
         $postMedia = PostMedia::where('id_post',$post->id)->first();
         if(!is_null($postMedia)){
             \DB::delete('DELETE from PostMedia WHERE id_post = ?', [$post->id]);
@@ -69,7 +73,7 @@ class PostController extends Controller
         $displayComments = [];
         foreach($comments as $comment){
             $send = User::find($comment->id_user);
-            $tbl = ["idCom" => $comment->id,"text" => $comment->texte, "sendAt" => $comment->posterA, "id" => $send->id , "pseudo" => $send->pseudo, "path" => $user->medium->path];
+            $tbl = ["idCom" => $comment->id,"text" => $comment->texte, "sendAt" => $comment->posterA, "id" => $send->id , "pseudo" => $send->pseudo, "path" => $send->medium->path];
             array_push($displayComments, $tbl);
         }
         if(isset($post->post_media[0])){
@@ -77,7 +81,11 @@ class PostController extends Controller
         }else{
             $path = null;
         }
-        $displayPost = ["idPost" => $post->id,"id" => $user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $user->medium->path];
+        $cLike = 0;
+        foreach($post->likes as $like){
+            $cLike++;
+        }
+        $displayPost = ["like" => $cLike, "idPost" => $post->id,"id" => $user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $user->medium->path];
         
         return view('main.post.post', ['user' => $user->pseudo,'id' => $request->id, 'post' => $displayPost,"comments" => $displayComments]);
     }
@@ -100,20 +108,22 @@ class PostController extends Controller
         }
         $id = $comment->id_post;
         $comment->delete();
-        return redirect()->route('post', ['id' => $id]);
+        return redirect()->back();
     }
 
     public function like(Request $request){
+        $mytime = Carbon::now();
         $like = Like::where('id_user', Auth::id())->where('id_post', $request->id)->first();
         $post = Post::find($request->id);
         if(is_null($like)){
             $like = new Like;
             $like->id_post = $request->id;
             $like->id_user = Auth::id();
+            $like->likedAt = $mytime->toDateTimeString();
             $like->save();
         }else{
             \DB::delete('DELETE from `Like` WHERE id_user = ? AND id_post = ?', [Auth::id(), $request->id]);
         }
-        return redirect()->route('user', ['pseudo' => $post->user->pseudo]);
+        return redirect()->back();
     }
 }

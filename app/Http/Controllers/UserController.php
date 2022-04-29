@@ -50,7 +50,7 @@ class UserController extends Controller
         $comments = $userSend->commentaires;
         $displayComments = [];
         foreach($comments as $comment){
-            $tbl = ["idCom" => $comment->id,"text" => $comment->texte, "sendAt" => $comment->posterA, "id" => $userSend->id , "pseudo" => $userSend->pseudo, "path" => $userSend->medium->path];
+            $tbl = ["idPost" => $comment->id_post,"idCom" => $comment->id,"text" => $comment->texte, "sendAt" => $comment->posterA, "id" => $userSend->id , "pseudo" => $userSend->pseudo, "path" => $userSend->medium->path];
             array_push($displayComments, $tbl);
         }
 
@@ -70,10 +70,10 @@ class UserController extends Controller
             foreach($post->likes as $like){
                 $cLike++;
             }
-            array_push($displayPost, ["idPost" => $post->id,"like" => $cLike,"id" => $user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $user->medium->path]);
+            array_push($displayPost, ["likedAt" => $like->likedAt->toDateTimeString() ,"pseudo"=>$post->user->pseudo, "idPost" => $post->id,"like" => $cLike,"id" => $post->user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $post->user->medium->path]);
         }
         usort($displayPost, function ($item1, $item2) {
-            return $item2['postedAt'] <=> $item1['postedAt'];
+            return $item2['likedAt'] <=> $item1['likedAt'];
         });
         $id = Auth::id();
         $user = User::where('pseudo', $request->pseudo)-> first();

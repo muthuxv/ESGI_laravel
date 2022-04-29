@@ -22,7 +22,9 @@
                 [<a href="{{ route('user', $user) }}">Postes</a>]
                 [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
                 [<a href="{{ route('userLiked', $user) }}">Likes</a>]
-                [<a href="{{ route('convUser', $user) }}">Envoyer un message</a>]
+                @if($user != Auth::user()->pseudo)
+                    [<a href="{{ route('convUser', $user) }}">Envoyer d'un message</a>]
+                @endif
             </nav>
         </h2>
     </x-slot>

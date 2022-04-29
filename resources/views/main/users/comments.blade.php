@@ -14,7 +14,9 @@
             [<a href="{{ route('user', $user) }}">Postes</a>]
             [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
             [<a href="{{ route('userLiked', $user) }}">Likes</a>]
-            [<a href="{{ route('conversation', $user) }}">Envoyer un message</a>]
+            @if($user != Auth::user()->pseudo)
+                [<a href="{{ route('convUser', $user) }}">Envoyer d'un message</a>]
+            @endif
             </nav>
         </h2>
     </x-slot>
@@ -25,17 +27,19 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1>
                         @foreach($comments as $comment)
-                            <span style="display:flex">
-                                <div class="container-profile">
-                                    <img src="/{{$comment['path']}}" alt="">
-                                </div>
-                                {{$comment["pseudo"]}} : {{$comment["text"]}}
-                            </span>
+                            <a href="/post/{{$comment['idPost']}}">
+                                <span style="display:flex">
+                                    <div class="container-profile">
+                                        <img src="/{{$comment['path']}}" alt="">
+                                    </div>
+                                    {{$comment["pseudo"]}} : {{$comment["text"]}}
+                                </span>
+                            </a>
                             <div style="font-size:0.9em">
                                 Envoyé à : {{$comment["sendAt"]}}
-                                <!--@if($comment["id"] == Auth::user()->id)
+                                @if($comment["id"] == Auth::user()->id)
                                     [<a href=" {{ route('deleteCom', $comment['idCom'])}}">Supprimer</a>]
-                                @endif-->
+                                @endif
                             </div>
                         @endforeach
                     </h1>

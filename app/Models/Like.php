@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id_post
  * @property int $id_user
+ * @property Carbon|null $likedAt
  * 
  * @property User $user
  * @property Post $post
@@ -30,6 +32,14 @@ class Like extends Model
 		'id_user' => 'int'
 	];
 
+	protected $dates = [
+		'likedAt'
+	];
+
+	protected $fillable = [
+		'likedAt'
+	];
+
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'id_user');
@@ -39,9 +49,4 @@ class Like extends Model
 	{
 		return $this->belongsTo(Post::class, 'id_post');
 	}
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class, 'id_user');
-    }
 }
