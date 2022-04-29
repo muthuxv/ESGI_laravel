@@ -10,10 +10,10 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <ul>
-                        @foreach ($users as $user)
+                        @foreach ($convs as $conv)
                             <li>
-                                <a href="{{route('formconv',[$user->pseudo,$user->id])}}">
-                                    {{$user->pseudo}}
+                                <a href="{{route('formconv',$conv['id'])}}">
+                                    <span>{{$conv["pseudo"]}}</span>
                                 </a>
                             </li>
                         @endforeach

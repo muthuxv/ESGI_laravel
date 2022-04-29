@@ -42,6 +42,8 @@ Route::get('/formconv/{id}', [ConversationController::class,'formconv'])->middle
 
 Route::post('/post/{id}',[ConversationController::class, 'post'])->middleware(['auth'])->name('post');
 
+Route::get('/newconv/{id}',[ConversationController::class, 'newConv'])->middleware(['auth'])->name('newConv');
+
 //Users routes
 Route::get('/user/{pseudo}', [user::class,'posted'])->middleware(['auth'])->name('user');
 
