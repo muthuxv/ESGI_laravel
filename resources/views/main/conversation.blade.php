@@ -1,12 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-           <nav>
-                [<a href="{{ route('user', $user) }}">Postes</a>]
-                [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
-                [<a href="{{ route('userLiked', $user) }}">Likes</a>]
-                [<a href="{{ route('convUser', $user) }}">Envoyer un message</a>]
-            </nav>
+            {{ __('Voici vos conversations') }}
         </h2>
     </x-slot>
 
@@ -14,9 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1>
-                        postes de {{$user}}
-                    </h1>
+                    <ul>
+                        @foreach ($users as $user)
+                            <li>
+                                <a href="{{route('formconv',[$user->pseudo,$user->id])}}">
+                                    {{$user->pseudo}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

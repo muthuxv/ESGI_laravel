@@ -24,11 +24,9 @@ use Illuminate\Database\Eloquent\Model;
 class Commentaire extends Model
 {
 	protected $table = 'Commentaire';
-	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'id' => 'int',
 		'id_post' => 'int'
 	];
 
