@@ -17,7 +17,16 @@
                     </span><br>
                     <span>Nom : {{$user->name}} // Prénom : {{$user->lastname}}</span><br>
                     <span>Email : {{$user->email}}</span><br><br>
-                    <label style="font-weight:bold" for="">Changer de photo de profile</label>
+                    <label style="font-weight:bold" for="">Changer de photo de profile</label><br>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li style="color:red">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('changeProfile') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="file" name="profile">

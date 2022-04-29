@@ -5,6 +5,7 @@ use App\Http\Controllers\TrendsController as trends;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserController as user;
 use App\Http\Controllers\PostController as post;
+use App\Http\Controllers\RechercheController as recherche;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::get('/', function () {
 
 Route::get('/trends', [trends::class,'trends'])->middleware(['auth'])->name('trends');
 
+//recherche routes
+Route::get('/recherche', [recherche::class,'main'])->middleware(['auth'])->name('recherche');
 
 //Follow/Unfollow routes
 Route::get('/follow/{pseudo}',[user::class, 'follow'])->middleware(['auth'])->name('follow');
@@ -67,6 +70,7 @@ Route::get('/like/{id}', [post::class,'like'])->middleware(['auth'])->name('like
 
 //Liste routes
 Route::get('/abonnements/{pseudo}', [user::class,'getAbonnements'])->middleware(['auth'])->name('abonnements');
+
 Route::get('/abonnes/{pseudo}', [user::class,'getAbonnes'])->middleware(['auth'])->name('abonnes');
 
 require __DIR__.'/auth.php';

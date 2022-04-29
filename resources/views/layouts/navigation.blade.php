@@ -8,11 +8,6 @@
                     <a href="{{ route('trends') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
-
-                    <a href="{{ route('conversation') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                    </a>
-
                 </div>
 
                 <!-- Navigation Links -->
@@ -24,6 +19,10 @@
                     <x-nav-link :href="route('conversation')" :active="request()->routeIs('conversation')">
                         {{ __('Conversation') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('recherche')" :active="request()->routeIs('recherche')">
+                        {{ __('Recherche') }}
+                    </x-nav-link>
+
 
                 </div>
             </div>
