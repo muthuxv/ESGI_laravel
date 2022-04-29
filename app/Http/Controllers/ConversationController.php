@@ -14,10 +14,23 @@ class ConversationController extends Controller
 {
     //
     public function conversation(Request $request) {
-        $users = User::all();
 
-        return view('main.conversation',['users'=>$users]);
+        $convs = \DB::select('SELECT * from conversation WHERE id_user1 = ? OR id_user2 = ?', [Auth::id(),Auth::id()]);
+        $display = [];
+        foreach($convs as $conv){
+            if($conv->id_user1 == Auth::user()->id){
+                $user = User::find($conv->id_user2);
+            }else{
+                $user = User::find($conv->id_user1);
+            }
+            $tbl = ["id" => $conv->id, "pseudo" => $user->pseudo, "path" => $user->medium->media];
+            array_push($display, $tbl);
+        }
+
+        return view('main.conversation',['convs'=>$display]);
+        
     }
+
 
     public function convUser(Request $request) {
         $user = User::where('pseudo', $request->pseudo)->first();
@@ -53,15 +66,8 @@ class ConversationController extends Controller
         }
         
 
+        return view('main.formconv',['messages'=>$messages,'id'=>$request->id,'conv'=>$conv]);
 
-        return view('main.formconv',['messages'=>$messages,'id'=>$request->id]);
-
-        /*$message =User::find($request->id);
-        if($message->user_id != Auth::id()){
-        
-            abort(404);
-        }
-        return view('update',['message'=>$message]);*/
         
     }
 
@@ -83,4 +89,19 @@ class ConversationController extends Controller
         return redirect()->route('formconv',['id'=>$request->id]);
         
     }
+
+    public function newConv(Request $request){
+
+        $messages = Message::where('id_conversation',$request->id)->get();
+       
+        
+        //verif si user est dans la conv
+        $conv2 = \DB::select('SELECT * from conversation WHERE id = ? AND id_user1 = ? OR id_user2 = ?', [$request->id, Auth::id(), Auth::id()]);
+        if(empty($conv2)){
+            abort(404);
+        }
+
+        return view('main.formconv',['messages'=>$messages,'id'=>$request->id]);
+    }
+
 }
