@@ -18,6 +18,7 @@ class UserController extends Controller
         $user = User::where('pseudo', $request->pseudo)->first();
         $displayPost = [];
         foreach($user->posts as $post){
+            $userabo = $post->pseudo;
             if(isset($post->post_media[0])){
                 $path = $post->post_media[0]->medium->path;
             }else{
@@ -27,7 +28,7 @@ class UserController extends Controller
             foreach($post->likes as $like){
                 $cLike++;
             }
-            array_push($displayPost, ["idPost" => $post->id,"like" => $cLike,"id" => $user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $user->medium->path]);
+            array_push($displayPost, ["user" => $userabo, "idPost" => $post->id,"like" => $cLike,"id" => $user->id,"text" => $post->text, "path" => $path, "postedAt" => $post->posterA->toDateTimeString(), "imgP" => $user->medium->path]);
         }
         usort($displayPost, function ($item1, $item2) {
             return $item2['postedAt'] <=> $item1['postedAt'];
@@ -60,6 +61,7 @@ class UserController extends Controller
         $user = User::where("pseudo", $request->pseudo)->first();
         $displayPost = [];
         foreach($user->likes as $like){
+            $userabo = $like->pseudo;
             $post = Post::find($like->id_post);
             if(isset($post->post_media[0])){
                 $path = $post->post_media[0]->medium->path;

@@ -36,12 +36,14 @@
                     <h1>postes de {{$user}}</h1>
                     @foreach($posts as $post)
                         <div style="border:1px solid black;margin-bottom:25px;padding:15px;width:750px;height:auto;position:relative;">
+                            <a href="{{ route('user', $user) }}">
                             <h2 style="display:flex">
                                 <div class="container-profile">
                                     <img src="/{{$post['imgP']}}" alt="">
                                 </div>
                                 {{$user}}
                             </h2>
+                            </a>
                             <a href="{{ route('post', $post['idPost']) }}">
                                 <p>A dit : {{$post["text"]}}</p>
                                 @if(!is_null($post["path"]))
