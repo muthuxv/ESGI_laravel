@@ -3,7 +3,6 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
            <nav>
            <b>Profil de {{ $user }}</b>
-           
             @if($isfollowing)
                 <a href="{{ route('unfollow', $user) }}">[UNFOLLOW]</a>
             @elseif(Auth::user()->pseudo != $user)
@@ -15,6 +14,7 @@
             [<a href="{{ route('user', $user) }}">Postes</a>]
             [<a href="{{ route('userComments', $user) }}">Commentaires</a>]
             [<a href="{{ route('userLiked', $user) }}">Likes</a>]
+            [<a href="{{ route('conversation', $user) }}">Envoyer un message</a>]
             </nav>
         </h2>
     </x-slot>

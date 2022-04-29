@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrendsController as trends;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserController as user;
 use App\Http\Controllers\PostController as post;
 
@@ -22,10 +23,21 @@ Route::get('/', function () {
 
 Route::get('/trends', [trends::class,'trends'])->middleware(['auth'])->name('trends');
 
+
 //Follow/Unfollow routes
 Route::get('/follow/{pseudo}',[user::class, 'follow'])->middleware(['auth'])->name('follow');
 
 Route::get('/unfollow/{pseudo}',[user::class, 'unfollow'])->middleware(['auth'])->name('unfollow');
+
+//conversationn routes
+
+Route::get('/conversation/{pseudo}', [ConversationController::class,'convUser'])->middleware(['auth'])->name('convUser');
+
+Route::get('/conversation', [ConversationController::class,'conversation'])->middleware(['auth'])->name('conversation');
+
+Route::get('/formconv/{id}', [ConversationController::class,'formconv'])->middleware(['auth'])->name('formconv');
+
+Route::post('/post/{id}',[ConversationController::class, 'post'])->middleware(['auth'])->name('post');
 
 //Users routes
 Route::get('/user/{pseudo}', [user::class,'posted'])->middleware(['auth'])->name('user');
