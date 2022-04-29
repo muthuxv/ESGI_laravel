@@ -16,10 +16,6 @@ class TrendsController extends Controller
         }else{
             $isPost = false;
         }
-<<<<<<< HEAD
-        $users = User::all();
-        return view('main.trends', ['isPost' => $isPost, 'users' => $users]);
-=======
         $user = Auth::id();
         $usersabonnement = Abonnement::select('abonnement')->where('abonne', $user)->get();
         $displayPost = [];
@@ -39,6 +35,5 @@ class TrendsController extends Controller
             return $item2['postedAt'] <=> $item1['postedAt'];
         });
         return view('main.trends', ['isPost' => $isPost, 'posts' => $displayPost]);
->>>>>>> 7799567c5f1099bc658c52ee4841717866fd0653
     }
 }

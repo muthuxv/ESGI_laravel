@@ -160,3 +160,4 @@ class UserController extends Controller
 
         return view('main.users.abonneList', ['user' => $user->pseudo, 'abonnes' => $displayAbonnes]);
     }
+}
