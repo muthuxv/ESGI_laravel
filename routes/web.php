@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/trends', [trends::class,'trends'])->middleware(['auth'])->name('trends');
 
+//Follow/Unfollow routes
 Route::get('/follow/{pseudo}',[user::class, 'follow'])->middleware(['auth'])->name('follow');
 
 Route::get('/unfollow/{pseudo}',[user::class, 'unfollow'])->middleware(['auth'])->name('unfollow');
@@ -51,5 +52,9 @@ Route::get('/deleteCom/{id}', [post::class,'deleteCom'])->middleware(['auth'])->
 Route::post('/comment/{id}', [post::class,'comment'])->middleware(['auth'])->name('comment');
 
 Route::get('/like/{id}', [post::class,'like'])->middleware(['auth'])->name('like');
+
+//Liste routes
+Route::get('/abonnements/{pseudo}', [user::class,'getAbonnements'])->middleware(['auth'])->name('abonnements');
+Route::get('/abonnes/{pseudo}', [user::class,'getAbonnes'])->middleware(['auth'])->name('abonnes');
 
 require __DIR__.'/auth.php';

@@ -16,8 +16,8 @@
                 @elseif(Auth::user()->pseudo != $user)
                     <a href="{{ route('follow', $user) }}">[FOLLOW]</a>
                 @endif
-                Abonnement : {{ $nbabonnement }}
-                Abonnés : {{ $nbabonne }}
+                <a href="{{ route('abonnements', $user) }}">Abonnement : {{ $nbabonnement }}</a>
+                <a href="{{ route('abonnes', $user) }}">Abonnés : {{ $nbabonne }}</a>
                 <br><br>
                 [<a href="{{ route('user', $user) }}">Postes</a>]
                 [<a href="{{ route('userComments', $user) }}">Commentaires</a>]

@@ -14,17 +14,27 @@
             @break
     @endswitch
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div style="width : 54rem;" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <ul>
-                        @foreach($users as $user)
-                            @if($user->id != Auth::id())
-                                <li><a href="{{ route('user', $user->pseudo) }}">{{ $user->pseudo }}</a>    
+                    @foreach($posts as $post)
+                        <div style="border:1px solid black;margin-bottom:25px;padding:15px;width:750px;height:auto;">
+                        <h2 style="display:flex">
+                            <div class="container-profile">
+                                <img src="/{{$post['imgP']}}" alt="">
+                            </div>
+                            {{ $post['user'] }}
+                        </h2>
+                            <p>A dit : {{$post["text"]}}</p>
+                            @if(!is_null($post["path"]))
+                                <img width="450" height="300" src="/{{$post['path']}}" alt="">
                             @endif
-                            </li>
-                        @endforeach
-                    </ul>
+                            <span style="font-size:0.9em">Posté à : {{$post["postedAt"]}}</span>
+                            @if($post["id"] == Auth::user()->id)
+                                [<a href="{{ route('delete', $post['idPost'])}}">Supprimer</a>]
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
