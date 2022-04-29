@@ -39,9 +39,4 @@ class Like extends Model
 	{
 		return $this->belongsTo(Post::class, 'id_post');
 	}
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class, 'id_user');
-    }
 }
