@@ -13,7 +13,12 @@
                         @foreach ($convs as $conv)
                             <li>
                                 <a href="{{route('formconv',$conv['id'])}}">
-                                    <span>{{$conv["pseudo"]}}</span>
+                                    <span style="display:flex">
+                                        <div class="container-profile">
+                                            <img src="/{{$conv['path']}}" alt="">
+                                        </div>
+                                        {{$conv["pseudo"]}}
+                                    </span>
                                 </a>
                             </li>
                         @endforeach

@@ -23,7 +23,7 @@ class ConversationController extends Controller
             }else{
                 $user = User::find($conv->id_user1);
             }
-            $tbl = ["id" => $conv->id, "pseudo" => $user->pseudo, "path" => $user->medium->media];
+            $tbl = ["id" => $conv->id, "pseudo" => $user->pseudo, "path" => $user->medium->path];
             array_push($display, $tbl);
         }
 
